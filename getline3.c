@@ -1,20 +1,20 @@
 #include "shell.h"
 
 /**
- * input_buf - the buffers commands
- * @info: a struct of parameter
- * @buf: the address of a buffer
- * @len: an address of the len var
+ * get_input_buf - Buffers the commands and take the input from a user
+ * @info: A struct that holds the arguments to maintain a prototype
+ * @buf: an address of a buffer to keep the input
+ * @len: an address of len var
  *
- * Return: bytes read
+ * Return: The number of bytes read.
  */
 
-ssize_t input_buf(info_t *info, char **buf, size_t *len)
+ssize_t get_input_buf(info_t *info, char **buf, size_t *len)
 {
 	ssize_t r = 0;
 	size_t len_p = 0;
 
-	if (!*len) /* if nothing left in the buffer, fill it */
+	if (!*len)
 	{
 		/*bfree((void **)info->cmd_buf);*/
 		free(*buf);
@@ -29,7 +29,7 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 		{
 			if ((*buf)[r - 1] == '\n')
 			{
-				(*buf)[r - 1] = '\0'; /* remove trailing newline */
+				(*buf)[r - 1] = '\0'; /* removes the trailing newline */
 				r--;
 			}
 			info->linecount_flag = 1;
@@ -46,15 +46,15 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 }
 
 /**
- * get_input - gets the line
- * @info: a struct parameter
+ * get_input - obtain the next line of an input from a user
+ * @info: A struct that holds possible arguments for a function prototype
  *
- * Return: a read byte
+ * Return: The number of bytes to be read
  */
 
 ssize_t get_input(info_t *info)
 {
-	static char *buf; /* the ';' command chain buffer */
+	static char *buf;
 	static size_t i, j, len;
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
@@ -63,41 +63,42 @@ ssize_t get_input(info_t *info)
 	r = input_buf(info, &buf, &len);
 	if (r == -1) /* EOF */
 		return (-1);
-	if (len)	/* we have commands left in the chain buffer */
+	if (len)
 	{
-		j = i; /* init new iterator to current buf position */
-		p = buf + i; /* get pointer for return */
+		j = i;
+		p = buf + i;
 
 		check_chain(info, buf, &j, i, len);
-		while (j < len) /* iterate to semicolon or end */
+		while (j < len)
 		{
 			if (is_chain(info, buf, &j))
 				break;
 			j++;
 		}
 
-		i = j + 1; /* increment past nulled ';'' */
-		if (i >= len) /* reached end of buffer? */
+		i = j + 1;
+		if (i >= len)
 		{
-			i = len = 0; /* reset position and length */
+			i = len = 0;
 			info->cmd_buf_type = CMD_NORM;
 		}
 
-		*buf_p = p; /* pass back pointer to current command position */
-		return (_strlen(p)); /* return length of current command */
+		*buf_p = p;
+		return (_strlen(p));
 	}
 
-	*buf_p = buf; /* else not a chain, pass back buffer from _getline() */
-	return (r); /* return length of buffer from _getline() */
+	*buf_p = buf;
+	return (r);
 }
 
 /**
- * read_buf - reads the buffer
- * @info: a struct parameter
- * @buf: a buffer
- * @i: a size
+ * read_buf - Reads a buffer
+ * @info: A struct that holds the possible
+ * arguments for a function prototype
+ * @buf: the buffer
+ * @i: A size
  *
- * Return: r
+ * Return: a count of bytes to be read
  */
 
 ssize_t read_buf(info_t *info, char *buf, size_t *i)
@@ -113,15 +114,15 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 }
 
 /**
- * _getline - gets the input
- * @info: a struct parameter
- * @ptr: An address of the pointer, preallocated or NULL
- * @length: size of pointer buffer if not NULL
+ * _get_line - obtain the input from a user
+ * @info: A struct that holds possible arguments for a function prototype
+ * @ptr: the address of a pointer, designated or NULL
+ * @length: a size of pointer buffer if not NULL
  *
- * Return: s
+ * Return: a size of the read bytes
  */
 
-int _getline(info_t *info, char **ptr, size_t *length)
+int _get_line(info_t *info, char **ptr, size_t *length)
 {
 	static char buf[READ_BUF_SIZE];
 	static size_t i, len;
@@ -161,16 +162,15 @@ int _getline(info_t *info, char **ptr, size_t *length)
 }
 
 /**
- * sigintHandler - blocks the ctrl-C
- * @sig_num: a number signal
+ * handle_interrupt - Blocks a ctrl-C
+ * @sig_num: a signal number
  *
  * Return: void
  */
 
-void sigintHandler(__attribute__((unused))int sig_num)
+void handle_interrupt(__attribute__((unused)) int sig_num)
 {
 	_puts("\n");
 	_puts("$ ");
 	_putchar(BUF_FLUSH);
 }
-
