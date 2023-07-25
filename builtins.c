@@ -1,14 +1,14 @@
 #include "shell.h"
 
+/*The developers: Dimakatso Chipape and Tebogo Lehong */
 /**
- * _myexit - exits shell
- * @info: Structure containing potential arguments,
- *		for the maintenance of prototype.
- *  Return: exits the exit status
- *         (0) if info.argv[0] != "exit"
+ * cust_exit - a function to exit shell
+ * @info: Structure containing future arguments,
+ *         used for the maintainance of prototype
+ * Return: Exits the exit status (0) except info.argv[0] is "exit"
  */
 
-int _myexit(info_t *info)
+int cust_exit(info_t *info)
 {
 	int exitcheck;
 
@@ -29,14 +29,15 @@ int _myexit(info_t *info)
 	info->err_num = -1;
 	return (-2);
 }
+
 /**
- * _myhelp - changes a directory
- * @info: Structure containing the arguments
- *          that maintains prototype
- *  Return: 0 always
+ * cust_help - Function that displays help message
+ * @info: Structure that carries the arguments
+ *         used to maintain a prototype
+ * Return: Always returns 0
  */
 
-int _myhelp(info_t *info)
+int cust_help(info_t *info)
 {
 	char **arg_array;
 
@@ -48,13 +49,13 @@ int _myhelp(info_t *info)
 }
 
 /**
- * _mycd - changes a current directory
- * @info: Structure containing the arguments
- *		that maintains prototype
- *  Return: Always 0
+ * cust_cd - a function that changes the current directory
+ * @info: Structure that carries the arguments
+ *         used to maintain a prototype.
+ * Return: Always returns 0
  */
 
-int _mycd(info_t *info)
+int cust_cd(info_t *info)
 {
 	char *s, *dir, buffer[1024];
 	int chdir_ret;
@@ -97,4 +98,3 @@ int _mycd(info_t *info)
 	}
 	return (0);
 }
-
