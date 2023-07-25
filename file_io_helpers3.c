@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * _erratoi - converts a string to an integer
- * @s: there string to be converted
- * Return: 0 if no numbers in string, converted number otherwise
- *       -1 on error
+ * str_to_int - change the string to an integer
+ * @s: The input string to change
+ * Return: a changed integer if valid, otherwise returns -1 on error
  */
-int _erratoi(char *s)
+
+int str_to_int(char *s)
 {
 	int i = 0;
 	unsigned long int result = 0;
 
 	if (*s == '+')
-		s++;  /* TODO: why does this make main return 255? */
+		s++;
 	for (i = 0;  s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
@@ -29,13 +29,12 @@ int _erratoi(char *s)
 }
 
 /**
- * print_error - prints an error message
- * @info: there parameter & return info strucure
- * @estr: there string suppressing specified error type
- * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
+ * print_custom_error - lists the custom error message
+ * @info: Structure holding the parameter & return info
+ * @error_msg: an error message to print
  */
-void print_error(info_t *info, char *estr)
+
+void print_custom_error(info_t *info, char *error_msg)
 {
 	_eputs(info->fname);
 	_eputs(": ");
@@ -47,13 +46,13 @@ void print_error(info_t *info, char *estr)
 }
 
 /**
- * print_d - function prints a decimal (integer) number (base 10)
- * @input: there input
- * @fd: the filedescriptor to write to
- *
- * Return: number of characters that are printed
+ * print_decimal - lists the decimal (integer) number (base 10)
+ * @input : an input number to print
+ * @fd: a file descriptor to write on
+ * Return: count of characters to print
  */
-int print_d(int input, int fd)
+
+int print_decimal(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
@@ -86,14 +85,14 @@ int print_d(int input, int fd)
 }
 
 /**
- * convert_number - converter function, a clone of itoa
- * @num: there number
- * @base: there base
- * @flags: there argument flags
- *
- * Return: string
+ * convert_to_base - change the number to a specified base
+ * @num: a value to convert
+ * @base: a desired base for the change
+ * @flags: the argument handling flags
+ * Return: a changed string for the representation of a number
  */
-char *convert_number(long int num, int base, int flags)
+
+char *convert_to_base(long int num, int base, int flags)
 {
 	static char *array;
 	static char buffer[50];
@@ -122,12 +121,11 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
- * @buf: there address of the string to modify
- *
- * Return: Always 0;
+ * remove_comment - return the first example of '#' with '\0'.
+ * @buf: an address of the string to be modified
  */
-void remove_comments(char *buf)
+
+void remove_comment(char *buf)
 {
 	int i;
 
@@ -138,3 +136,4 @@ void remove_comments(char *buf)
 			break;
 		}
 }
+
