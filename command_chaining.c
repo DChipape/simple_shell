@@ -1,13 +1,14 @@
 #include "shell.h"
 
 /**
- * is_chain - test if current char in buffer is a chain delimeter
- * @info: there parameter structure
- * @buf: there character buffer
- * @p: address of current posture in buf
+ * is_chain - Tests for the command chaining delimiter
+ * @info: a pointer that points to the parameter structure
+ * @buf: a character buffer
+ * @p: the address of a current position in the buf
  *
- * Return: 1 if chain delimeter, 0 otherwise
+ * Return: 1 if it's a command chaining delimiter, 0 if not
  */
+
 int is_chain(info_t *info, char *buf, size_t *p)
 {
 	size_t j = *p;
@@ -36,15 +37,17 @@ int is_chain(info_t *info, char *buf, size_t *p)
 }
 
 /**
- * check_chain - checks we should continue chaining based on last status
- * @info: there parameter structure
- * @buf: there character buffer
- * @p: there address of current posture in buf
- * @i: there starting posture in buf
- * @len: there length of buf
+ * check_chain - Checks if we should continue chaining
+ * depends on last status
+ * @info: a pointer that points to the parameter structure
+ * @buf: the character buffer
+ * @p: an address of the current position in a buf
+ * @i: The beginning of a position in buf
+ * @len: the length of a buf
  *
  * Return: Void
  */
+
 void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
@@ -70,11 +73,12 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 }
 
 /**
- * replace_alias - replaces an aliases in the tokenized string
- * @info: there parameter structure
+ * replace_alias - return an alias in a tokenized string
+ * @info: a pointer that points to the parameter structure
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 if not
  */
+
 int replace_alias(info_t *info)
 {
 	int i;
@@ -99,11 +103,12 @@ int replace_alias(info_t *info)
 }
 
 /**
- * replace_vars - replaces vars in the tokenized string
- * @info: there parameter structure
+ * replace_vars - return variables in a tokenized string
+ * @info: Pointer that points to the parameter structure
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 if not
  */
+
 int replace_vars(info_t *info)
 {
 	int i = 0;
@@ -140,16 +145,16 @@ int replace_vars(info_t *info)
 }
 
 /**
- * replace_string - replaces string
- * @old: there address of old string
- * @new: there new string
+ * replace_string - returns the string
+ * @old: the address of old string
+ * @new: a new string
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 if not
  */
+
 int replace_string(char **old, char *new)
 {
 	free(*old);
 	*old = new;
 	return (1);
 }
-
