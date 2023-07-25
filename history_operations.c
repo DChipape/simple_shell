@@ -1,39 +1,39 @@
 #include "shell.h"
 
+/*The developers: Dimakatso Chipape and Tebogo Lehong */
 /**
- * get_history_file - gets the history file
- * @info: there parameter struct
+ * get_history_file_path - Gets the path to the history file.
+ * @info: The parameter struct containing shell information.
  *
- * Return: allocated string carrying history file
+ * Return: Allocated string carrying the history file path.
  */
-
-char *get_history_file(info_t *info)
+char *get_history_file_path(info_t *info)
 {
-	char *buf, *dir;
+	char *buf, *home_dir;
 
-	dir = _getenv(info, "HOME=");
-	if (!dir)
+	home_dir = _getenv(info, "HOME=");
+	if (!home_dir)
 		return (NULL);
-	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
+	buf = malloc(sizeof(char) * (_strlen(home_dir) + _strlen(HIST_FILE) + 2));
 	if (!buf)
 		return (NULL);
-	buf[0] = 0;
-	_strcpy(buf, dir);
+	buf[0] = '\0';
+	_strcpy(buf, home_dir);
 	_strcat(buf, "/");
 	_strcat(buf, HIST_FILE);
 	return (buf);
 }
 
 /**
- * write_history - creates a file, or appends to an existing file
- * @info: there parameter struct
+ * write_history_to_file - Writes the shell's history to a file.
+ * @info: The parameter struct containing shell information.
  *
- * Return: 1 on success, else -1
+ * Return: 1 on success, -1 on failure.
  */
-int write_history(info_t *info)
+int write_history_to_file(info_t *info)
 {
 	ssize_t fd;
-	char *filename = get_history_file(info);
+	char *filename = get_history_file_path(info);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -54,17 +54,17 @@ int write_history(info_t *info)
 }
 
 /**
- * read_history - reads history from file
- * @info: there parameter struct
+ * read_history_from_file - Reads the shell's history from a file.
+ * @info: The parameter struct containing shell information.
  *
- * Return: histcount on success, 0 otherwise
+ * Return: Number of lines read from history file, 0 on failure.
  */
-int read_history(info_t *info)
+int read_history_from_file(info_t *info)
 {
 	int i, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = get_history_file(info);
+	char *buf = NULL, *filename = get_history_file_path(info);
 
 	if (!filename)
 		return (0);
@@ -81,14 +81,14 @@ int read_history(info_t *info)
 	if (!buf)
 		return (0);
 	rdlen = read(fd, buf, fsize);
-	buf[fsize] = 0;
+	buf[fsize] = '\0';
 	if (rdlen <= 0)
 		return (free(buf), 0);
 	close(fd);
 	for (i = 0; i < fsize; i++)
 		if (buf[i] == '\n')
 		{
-			buf[i] = 0;
+			buf[i] = '\0';
 			build_history_list(info, buf + last, linecount++);
 			last = i + 1;
 		}
@@ -103,14 +103,14 @@ int read_history(info_t *info)
 }
 
 /**
- * build_history_list - adds entry to a history linked list
- * @info: Structure carrying possible arguments. Used to sustain
- * @buf: buffer
- * @linecount: the history linecount, histcount
+ * add_history_entry - Adds an entry to the shell's history linked list.
+ * @info: The parameter struct containing shell information.
+ * @buf: The buffer containing the history entry to add.
+ * @linecount: The history line count.
  *
- * Return: Always 0
+ * Return: Always 0.
  */
-int build_history_list(info_t *info, char *buf, int linecount)
+int add_history_entry(info_t *info, char *buf, int linecount)
 {
 	list_t *node = NULL;
 
@@ -124,12 +124,12 @@ int build_history_list(info_t *info, char *buf, int linecount)
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
- * @info: Structure carrying possible arguments. Used to sustain
+ * renumber_history_entries - Renumbers the history linked list after changes.
+ * @info: The parameter struct containing shell information.
  *
- * Return: the new histcount
+ * Return: The new histcount.
  */
-int renumber_history(info_t *info)
+int renumber_history_entries(info_t *info)
 {
 	list_t *node = info->history;
 	int i = 0;
