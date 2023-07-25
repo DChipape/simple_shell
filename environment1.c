@@ -1,12 +1,13 @@
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @info: Structure carrying possible arguments. Used to sustain
- *          constant function prototype.
- * Return: Always 0
+ * get_environment - lists the copy of an environment as a string of array
+ * @info: Structure that holds the possible arguments, for the maintainance of
+ *        constant function prototype
+ * Return: a string of array representing an environment
  */
-char **get_environ(info_t *info)
+
+char **get_environment(info_t *info)
 {
 	if (!info->environ || info->env_changed)
 	{
@@ -18,13 +19,14 @@ char **get_environ(info_t *info)
 }
 
 /**
- * _unsetenv - Remove an environment variable
- * @info: Structure carrying possible arguments. Used to sustain
- *        constant function prototype.
- *  Return: 1 on delete, 0 otherwise
- * @var: the string env var property
+ * unset_environment_variable - Removes the environment variable
+ * @info: Structure that holds possible arguments, for the maintainance of
+ *        constant function prototype
+ * @var: a name of the environment variable to be removed
+ * Return: 1 if the variable is deleted, 0 if not
  */
-int _unsetenv(info_t *info, char *var)
+
+int unset_environment_variable(info_t *info, char *var)
 {
 	list_t *node = info->env;
 	size_t i = 0;
@@ -50,15 +52,16 @@ int _unsetenv(info_t *info, char *var)
 }
 
 /**
- * _setenv - Initialize a new environment variable,
- *             or modify an existing one
- * @info: Structure carrying possible arguments. Used to sustain
- *        constant function prototype.
- * @var: the string env var property
- * @value: the string env var value
- *  Return: Always 0
+ * set_environment_variable - Initializes the new environment variable
+ *                            or modifies an existing
+ * @info: Structure that holds on arguments, for the maintainance of
+ *        constant function prototype
+ * @var: a name of the environment variable
+ * @value: a number for the environment variable
+ * Return: Always 0
  */
-int _setenv(info_t *info, char *var, char *value)
+
+int set_environment_variable(info_t *info, char *var, char *value)
 {
 	char *buf = NULL;
 	list_t *node;
