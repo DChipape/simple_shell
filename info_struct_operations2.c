@@ -1,11 +1,11 @@
 #include "shell.h"
 
+/*The developers: Dimakatso Chipape and Tebogo Lehong */
 /**
- * clear_info - initializes the info_t struct
- * @info: the address of struct
+ * initialize_info_struct - Initializes the fields of the info_t struct.
+ * @info: The address of the info_t struct to be initialized.
  */
-
-void clear_info(info_t *info)
+void initialize_info_struct(info_t *info)
 {
 	info->arg = NULL;
 	info->argv = NULL;
@@ -14,12 +14,11 @@ void clear_info(info_t *info)
 }
 
 /**
- * free_info - frees the  info_t struct fields
- * @info: the address to struct
- * @all: true if all the fields are freed
+ * release_info_struct - Frees memory associated with the info_t struct fields.
+ * @info: The address of the info_t struct.
+ * @all: True if all the fields are to be freed, otherwise false.
  */
-
-void free_info(info_t *info, int all)
+void release_info_struct(info_t *info, int all)
 {
 	ffree(info->argv);
 	info->argv = NULL;
@@ -35,7 +34,7 @@ void free_info(info_t *info, int all)
 		if (info->alias)
 			free_list(&(info->alias));
 		ffree(info->environ);
-			info->environ = NULL;
+		info->environ = NULL;
 		bfree((void **)info->cmd_buf);
 		if (info->readfd > 2)
 			close(info->readfd);
@@ -44,12 +43,11 @@ void free_info(info_t *info, int all)
 }
 
 /**
- * set_info - initializes the info_t struct
- * @info: the address of a struct
- * @av: an argument vector
+ * configure_info_struct - Configures the info_t struct with argument vector.
+ * @info: The address of the info_t struct.
+ * @av: The argument vector.
  */
-
-void set_info(info_t *info, char **av)
+void configure_info_struct(info_t *info, char **av)
 {
 	int i = 0;
 
@@ -59,7 +57,6 @@ void set_info(info_t *info, char **av)
 		info->argv = strtow(info->arg, " \t");
 		if (!info->argv)
 		{
-
 			info->argv = malloc(sizeof(char *) * 2);
 			if (info->argv)
 			{
@@ -71,7 +68,8 @@ void set_info(info_t *info, char **av)
 			;
 		info->argc = i;
 
-		replace_alias(info);
-		replace_vars(info);
+		replace_aliases(info);
+		replace_variables(info);
 	}
 }
+
