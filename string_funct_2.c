@@ -1,13 +1,14 @@
 #include "shell.h"
 
 /**
- * _strcpy - copies a string
- * @dest: there destination
- * @src: there source
+ * custom_strcpy - Copies a string from the source to a destination
+ * @dest: a destination buffer to be copied to
+ * @src: a source string to copy
  *
- * Return: pointer to destination
+ * Return: Pointer that points to a destination buffer
  */
-char *_strcpy(char *dest, char *src)
+
+char *custom_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
@@ -23,12 +24,13 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * _strdup - duplicates a string
- * @str: there string must duplicate
+ * custom_strdup - Duplicates the string
+ * @str: a string to be duplicated
  *
- * Return: pointer to the duplicated string
+ * Return: Pointer that points to the duplicated string or NULL on failure
  */
-char *_strdup(const char *str)
+
+char *custom_strdup(const char *str)
 {
 	int length = 0;
 	char *ret;
@@ -46,12 +48,13 @@ char *_strdup(const char *str)
 }
 
 /**
- *_puts - prints an input string
- *@str: there string that will be printed
+ * custom_puts - Prints a string to the stdout
+ * @str: an input string to print
  *
  * Return: Nothing
  */
-void _puts(char *str)
+
+void custom_puts(char *str)
 {
 	int i = 0;
 
@@ -65,13 +68,14 @@ void _puts(char *str)
 }
 
 /**
- * _putchar - writes the character c to stdout
- * @c: There character that will print
+ * custom_putchar - note the character c to stdout
+ * @c: a character to print
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set accordingly.
+ * Return: On success, 1. On error, -1 is returned,
+ * and errno is set accordingly
  */
-int _putchar(char c)
+
+int custom_putchar(char c)
 {
 	static int i;
 	static char buf[WRITE_BUF_SIZE];
@@ -85,4 +89,3 @@ int _putchar(char c)
 		buf[i++] = c;
 	return (1);
 }
-
