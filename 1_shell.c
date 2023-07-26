@@ -1,5 +1,6 @@
 #include "shell.h"
 
+/*The developers: Dimakatso Chipape and Tebogo Lehong */
 /**
  * hsh - main shell loop
  * @info: there parameter & return info structure
