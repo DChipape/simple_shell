@@ -1,5 +1,6 @@
 #include "shell.h"
 
+/*The developers: Dimakatso Chipape and Tebogo Lehong */
 /**
  * get_history_file - Gets the path to the history file.
  * @info: The parameter struct containing shell information.
