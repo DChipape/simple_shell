@@ -2,9 +2,9 @@
 
 /**
  * get_history_file - gets the history file
- * @info: parameter struct
+ * @info: there parameter struct which carries shell info
  *
- * Return: allocated string containg history file
+ * Return: allocated string carrying history file
  */
 
 char *get_history_file(info_t *info)
@@ -26,7 +26,7 @@ char *get_history_file(info_t *info)
 
 /**
  * write_history - creates a file, or appends to an existing file
- * @info: the parameter struct
+ * @info: there parameter struct which carries shell info
  *
  * Return: 1 on success, else -1
  */
@@ -54,8 +54,8 @@ int write_history(info_t *info)
 }
 
 /**
- * read_history - reads history from file
- * @info: the parameter struct
+ * read_history - reads history from there file
+ * @info: there parameter struct which carries shell info
  *
  * Return: histcount on success, 0 otherwise
  */
@@ -104,9 +104,9 @@ int read_history(info_t *info)
 
 /**
  * build_history_list - adds entry to a history linked list
- * @info: Structure containing potential arguments. Used to maintain
+ * @info: Structure carrying possible arguments. Used to maintain
  * @buf: buffer
- * @linecount: the history linecount, histcount
+ * @linecount: there history linecount, histcount
  *
  * Return: Always 0
  */
@@ -125,7 +125,7 @@ int build_history_list(info_t *info, char *buf, int linecount)
 
 /**
  * renumber_history - renumbers the history linked list after changes
- * @info: Structure containing potential arguments. Used to maintain
+ * @info: Structure carrying possible arguments. Used to maintain
  *
  * Return: the new histcount
  */
@@ -140,4 +140,4 @@ int renumber_history(info_t *info)
 		node = node->next;
 	}
 	return (info->histcount = i);
-}
+i}
