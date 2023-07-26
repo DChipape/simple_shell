@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * input_buf - buffers chained commands
- * @info: parameter struct
- * @buf: address of buffer
- * @len: address of len var
+ * input_buf - Buffers the commands and take the input from a user
+ * @info: a struct of parameter
+ * @buf: an address of a buffer to keep the input
+ * @len: an address of the len var
  *
  * Return: bytes read
  */
@@ -45,11 +45,12 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 }
 
 /**
- * get_input - gets a line minus the newline
- * @info: parameter struct
+ * get_input - obtain the next line of an input from a user
+ * @info: a struct parameter
  *
- * Return: bytes read
+ * Return: The number of bytes to be read
  */
+
 ssize_t get_input(info_t *info)
 {
 	static char *buf; /* the ';' command chain buffer */
@@ -88,15 +89,16 @@ ssize_t get_input(info_t *info)
 	*buf_p = buf; /* else not a chain, pass back buffer from _getline() */
 	return (r); /* return length of buffer from _getline() */
 }
-
 /**
- * read_buf - reads a buffer
- * @info: parameter struct
- * @buf: buffer
- * @i: size
+ * read_buf - reads the buffer
+ * @info: A struct that holds the possible 
+ * arguments for a function prototype
+ * @buf: a buffer
+ * @i: a size
  *
  * Return: r
  */
+
 ssize_t read_buf(info_t *info, char *buf, size_t *i)
 {
 	ssize_t r = 0;
@@ -110,13 +112,14 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 }
 
 /**
- * _getline - gets the next line of input from STDIN
- * @info: parameter struct
- * @ptr: address of pointer to buffer, preallocated or NULL
- * @length: size of preallocated ptr buffer if not NULL
+ * _getline - obtain the input from a user
+ * @info: A struct that holds possible arguments for a function prototype
+ * @ptr: the address of a pointer, designated or NULL
+ * @length: size of pointer buffer if not NULL
  *
- * Return: s
+ * Return: a size of the read bytes
  */
+
 int _getline(info_t *info, char **ptr, size_t *length)
 {
 	static char buf[READ_BUF_SIZE];
@@ -157,11 +160,12 @@ int _getline(info_t *info, char **ptr, size_t *length)
 }
 
 /**
- * sigintHandler - blocks ctrl-C
- * @sig_num: the signal number
+ * sigintHandler - blocks the ctrl-C
+ * @sig_num: a signal number
  *
  * Return: void
  */
+
 void sigintHandler(__attribute__((unused))int sig_num)
 {
 	_puts("\n");
